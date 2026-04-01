@@ -1,11 +1,16 @@
 from fastapi import FastAPI
 import joblib
 import numpy as np
+import os
 
 app = FastAPI()
 
 # load model
-model = joblib.load("../models/income_model.pkl")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+model_path = os.path.join(BASE_DIR, "models", "income_model.pkl")
+
+model = joblib.load(model_path)
 
 @app.get("/")
 def home():
